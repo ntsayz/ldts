@@ -19,7 +19,6 @@ public class Game {
     }
     private void draw(){
         try {
-
             TerminalSize terminalSize = new TerminalSize(40, 20);
             DefaultTerminalFactory terminalFactory = new
                     DefaultTerminalFactory()
@@ -42,15 +41,13 @@ public class Game {
                 processKey(key);
             }
 
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void processKey(KeyStroke key){
+
         switch (key.getKeyType()){
             case ArrowUp :
                 y--;
@@ -66,6 +63,9 @@ public class Game {
                 break;
             case EOF:
                 running = false;
+                break;
+            case Character:
+                if (key.getCharacter() == 'q') running = false; 
                 break;
         }
 
