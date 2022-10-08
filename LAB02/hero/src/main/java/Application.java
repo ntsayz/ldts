@@ -1,11 +1,7 @@
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
+
 import java.io.IOException;
 import com.ntsayz.hero.*;
+import com.googlecode.lanterna.*;
 
 
 public class Application {
@@ -14,5 +10,7 @@ public class Application {
 
         Game game = new Game();
         game.run();
+
+
     }
 }

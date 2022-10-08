@@ -1,4 +1,4 @@
-import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -11,34 +11,24 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.io.IOException;
 
 public class Game {
-    private int x = 10;
-    private int y = 10;
-    private boolean running = true;
+    private boolean validSession = true;
     public void run(){
         draw();
     }
+
     private void draw(){
         try {
-            TerminalSize terminalSize = new TerminalSize(40, 20);
-            DefaultTerminalFactory terminalFactory = new
-                    DefaultTerminalFactory()
-                    .setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
 
-             // handling screen
-            Screen screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
+            Screen screen = windowInitialization();
+            Hero hero = new Hero();
 
-            // game loop should be around here TODO
-
-            while(running){
+            while(validSession){
                 screen.clear();
-                screen.setCharacter(x, y, TextCharacter.fromCharacter('P')[0]);
+                hero.draw(screen);
                 screen.refresh();
                 KeyStroke key = screen.readInput();
-                processKey(key);
+                processEvent(key);
+                hero.updatePos(key);
             }
 
         } catch (IOException e) {
@@ -46,28 +36,33 @@ public class Game {
         }
     }
 
-    private void processKey(KeyStroke key){
+    private Screen windowInitialization() throws IOException {
+            TerminalSize terminalSize = new TerminalSize(40, 20);
+            DefaultTerminalFactory terminalFactory = new
+                    DefaultTerminalFactory()
+                    .setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
 
+            // handling screen
+            Screen screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);
+            screen.startScreen();
+            screen.doResizeIfNecessary();
+
+            return screen;
+    }
+
+    private void processEvent(KeyStroke key){
         switch (key.getKeyType()){
-            case ArrowUp :
-                y--;
-                break;
-            case ArrowDown:
-                y++;
-                break;
-            case ArrowRight:
-                x++;
-                break;
-            case ArrowLeft:
-                x--;
-                break;
             case EOF:
-                running = false;
+                validSession = false;
                 break;
             case Character:
-                if (key.getCharacter() == 'q') running = false; 
+                if (key.getCharacter() == 'q') validSession = false;
                 break;
         }
 
     }
 }
+
+
