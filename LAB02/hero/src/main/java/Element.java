@@ -23,8 +23,8 @@ public class Element {
 
     }
 
-    void moveElement(Position position){
-        this.setPosition(position);
+    void moveElement(Position toPos){
+        if(elementCanMove(toPos)) this.setPosition(toPos);
     }
 
     public void setPosition(Position pos){
@@ -36,6 +36,12 @@ public class Element {
     }
     public int getPosY(){
         return this.position.getY();
+    }
+
+    public boolean elementCanMove(Position toPos){
+        if(toPos.getX() < 0 || toPos.getX() >= 59.5) return false;
+        if(toPos.getY() < 0 || toPos.getY() >= 29.5) return false;
+        return true;
     }
 
 }
