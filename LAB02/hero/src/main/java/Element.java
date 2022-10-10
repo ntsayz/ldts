@@ -2,9 +2,9 @@ import com.googlecode.lanterna.input.KeyStroke;
 
 public class Element {
     Position position;
-    public Element(){
-        position = new Position(10,10);
-    }
+    int winWidth, winHeight;
+    public Element(){}
+
 
     public Position moveUp(){
         return new Position(this.getPosX(),this.getPosY()-1);
@@ -25,12 +25,16 @@ public class Element {
 
     void moveElement(Position toPos){
         if(elementCanMove(toPos)) this.setPosition(toPos);
+        this.setPosition(this.position);
     }
 
     public void setPosition(Position pos){
         this.position = pos;
     }
 
+    public Position getPos(){
+        return this.position;
+    }
     public int getPosX(){
         return this.position.getX();
     }
@@ -39,8 +43,9 @@ public class Element {
     }
 
     public boolean elementCanMove(Position toPos){
-        if(toPos.getX() < 0 || toPos.getX() >= 59.5) return false;
-        if(toPos.getY() < 0 || toPos.getY() >= 29.5) return false;
+        //System.out.println(this.winHeight*1.25);
+        if(toPos.getX() < 0 || toPos.getX() >= this.winWidth*0.983){return false;}
+        if(toPos.getY() < 0 || toPos.getY() >= this.winHeight*0.983 -1){return false;}
         return true;
     }
 
