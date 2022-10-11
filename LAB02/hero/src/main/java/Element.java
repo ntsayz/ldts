@@ -1,3 +1,8 @@
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 
 public class Element {
@@ -5,6 +10,9 @@ public class Element {
     int winWidth, winHeight;
     public Element(int x, int y){
         this.position = new Position(x,y);
+    }
+    public void draw(TextGraphics graphics){
+
     }
 
     public Position moveUp(){
