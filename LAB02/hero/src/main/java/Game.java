@@ -25,6 +25,7 @@ public class Game {
             Screen screen = arena.getScreen();
 
 
+
             while(validSession){
                 screen.clear();
                 arena.draw(graphics);

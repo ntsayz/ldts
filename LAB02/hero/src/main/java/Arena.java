@@ -34,25 +34,7 @@ public class Arena {
 
 
     }
-    public TextGraphics getGraphics() throws IOException {
-        TerminalSize terminalSize = new TerminalSize(this.width, this.height);
-        DefaultTerminalFactory terminalFactory = new
-                DefaultTerminalFactory()
-                .setInitialTerminalSize(terminalSize);
-        Terminal terminal = terminalFactory.createTerminal();
 
-        // handling screen
-        this.screen = new TerminalScreen(terminal);
-        this.screen.setCursorPosition(null);
-        this.screen.startScreen();
-        this.screen.doResizeIfNecessary();
-
-        this.graphics = this.screen.newTextGraphics();
-        this.graphics.setBackgroundColor(TextColor.Factory.fromString("#140014"));
-        this.graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-
-        return this.graphics;
-    }
 
     private List<Wall> createWalls() {
         this.walls = new ArrayList<>();
@@ -78,23 +60,40 @@ public class Arena {
             case ArrowDown -> moveElement(hero.moveDown());
             case ArrowRight -> moveElement(hero.moveRight());
             case ArrowLeft -> moveElement(hero.moveLeft());
-
         }
     }
     void moveElement(Position toPos){
-        if(elementCanMove(toPos)) hero.setPosition(toPos);
-        hero.setPosition(hero.position);
+        if(elementCanMove(toPos)) this.hero.setPosition(toPos);
     }
     public boolean elementCanMove(Position toPos){
-        //if(toPos.getX() < 0 || toPos.getX() >= width*0.983){return false;}
+        //if(toPos.getX() < 0 /*|| toPos.getX() >= width*0.983*/){return false;}
         //if(toPos.getY() < 0 || toPos.getY() >= height*0.983){return false;}
 
         for(Wall wall: this.walls){
-            if(wall.getPosition().equals(toPos)) {System.out.println("Wall");return false;}
+            if(wall.getPosition().equals(toPos)) {return false;}
         }
-
         return true;
     }
+    public TextGraphics getGraphics() throws IOException {
+        TerminalSize terminalSize = new TerminalSize(this.width, this.height);
+        DefaultTerminalFactory terminalFactory = new
+                DefaultTerminalFactory()
+                .setInitialTerminalSize(terminalSize);
+        Terminal terminal = terminalFactory.createTerminal();
+
+        // handling screen
+        this.screen = new TerminalScreen(terminal);
+        this.screen.setCursorPosition(null);
+        this.screen.startScreen();
+        this.screen.doResizeIfNecessary();
+
+        this.graphics = this.screen.newTextGraphics();
+        this.graphics.setBackgroundColor(TextColor.Factory.fromString("#140014"));
+        this.graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+
+        return this.graphics;
+    }
+
 
 
 }

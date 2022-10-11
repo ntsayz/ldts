@@ -15,14 +15,10 @@ public class Hero extends Element {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(winWidth * 2, winHeight * 2), ' ');
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
-        //graphics.putString(new TerminalPosition(position.getX() , position.getY() ), "\\/");
-        //graphics.putString(new TerminalPosition(position.getX() , position.getY() +1), "/\\");
-
-
     }
 
     public void printPos(){
-        System.out.println("Y: " + this.position.getY() + " X: " + this.position.getX());
+        System.out.println("HERO --> Y: " + this.position.getY() + " X: " + this.position.getX());
     }
 
 
