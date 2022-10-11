@@ -10,11 +10,12 @@ public class Hero extends Element {
         this.winWidth = x*2;
 
     }
+    @Override
     public void draw(TextGraphics graphics){
-        graphics.setForegroundColor(TextColor.Factory.fromString("#01779c"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#0cf0c9"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(winWidth * 2, winHeight * 2), ' ');
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "P");
     }
 
     public void printPos(){

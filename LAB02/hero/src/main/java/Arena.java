@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width;
@@ -20,21 +21,22 @@ public class Arena {
     TextGraphics graphics;
     Hero hero;
     private List<Wall> walls;
+    private List<Coin> coins;
     public Arena(int width, int height ){
         hero = new Hero(width/2,height/2); //makes sure hero always spawns at the center
         this.width = width;
         this.height = height;
         this.walls = createWalls();
+        this.coins = createCoins();
     }
 
     public void draw(TextGraphics graphics) throws IOException{
         hero.draw(graphics);
-        for (Wall wall : walls)
-            wall.draw(graphics);
+        for (Wall wall : walls) wall.draw(graphics);
+        for(Coin coin: coins) coin.draw(graphics);
 
 
     }
-
 
     private List<Wall> createWalls() {
         this.walls = new ArrayList<>();
@@ -49,18 +51,40 @@ public class Arena {
         }
         return walls;
     }
+    private List<Coin> createCoins() {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < 8; i++)
+            coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return coins;
+    }
+    private void addCoins(){
+        Random random = new Random();
+        coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+    }
+    private void retrieveCoins() {
+        for (Coin coin : coins) {
+            if (this.hero.getPosition().equals(coin.getPosition())) {
+                coins.remove(coin);
+                addCoins();
+                break;
+            }
+        }
+
+
+    }
     public Screen getScreen(){
         return this.screen;
     }
     public void processKey(KeyStroke key){
         //Position pos = hero.updatePos(key);
-
         switch (key.getKeyType()) {
             case ArrowUp -> moveElement(hero.moveUp());
             case ArrowDown -> moveElement(hero.moveDown());
             case ArrowRight -> moveElement(hero.moveRight());
             case ArrowLeft -> moveElement(hero.moveLeft());
         }
+        retrieveCoins();
     }
     void moveElement(Position toPos){
         if(elementCanMove(toPos)) this.hero.setPosition(toPos);
@@ -74,6 +98,7 @@ public class Arena {
         }
         return true;
     }
+
     public TextGraphics getGraphics() throws IOException {
         TerminalSize terminalSize = new TerminalSize(this.width, this.height);
         DefaultTerminalFactory terminalFactory = new
