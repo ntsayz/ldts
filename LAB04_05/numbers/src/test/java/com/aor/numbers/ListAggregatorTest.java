@@ -56,19 +56,21 @@ public class ListAggregatorTest {
         Assertions.assertEquals(1, min);
     }
 
-    @Test
+    /*@Test
     public void distinct() {
 
         ListAggregator aggregator = new ListAggregator();
         int distinct = aggregator.distinct(getList());
 
         Assertions.assertEquals(4, distinct);
-    }
+    }*/
     //#8726
     @Test void distinct1(){
+        list = Arrays.asList(1,2,4,2);
         ListAggregator aggregator = new ListAggregator();
-        int distinct = aggregator.distinct(getList());
+        ListDeduplicator deduplicator = new ListDeduplicator();
+        int distinct = aggregator.distinct(Arrays.asList(1, 2, 4, 2), deduplicator);
 
-        Assertions.assertEquals(4, distinct);
+        Assertions.assertEquals(3, distinct);
     }
 }
