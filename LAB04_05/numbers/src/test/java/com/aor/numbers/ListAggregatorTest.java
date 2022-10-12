@@ -66,6 +66,9 @@ public class ListAggregatorTest {
     }
     //#8726
     @Test void distinct1(){
+        ListAggregator aggregator = new ListAggregator();
+        int distinct = aggregator.distinct(getList());
 
+        Assertions.assertEquals(4, distinct);
     }
 }

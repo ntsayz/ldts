@@ -2,6 +2,8 @@ package com.aor.numbers;
 
 import java.util.List;
 
+import static java.lang.Integer.MIN_VALUE;
+
 /**
  * A utility class that aggregates list of numbers
  * into a single integer using various functions.
@@ -25,7 +27,7 @@ public class ListAggregator {
      * @return The maximum value in the list.
      */
     public Integer max(List<Integer> list) {
-        int max = -999999999;
+        int max = MIN_VALUE;
 
         for (Integer number : list)
             if (number > max)
