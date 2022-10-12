@@ -22,52 +22,50 @@ public class ListAggregatorTest {
         return list;
     }
 
-    @Test void max1(){
-        List<Integer> list = getList();
-
-        ListAggregator aggregator = new ListAggregator();
-        int max = aggregator.max(list); //
-
-        Assertions.assertEquals(5, max);
-    }
-
     @Test
     public void sum() {
-        List<Integer> list = getList();
 
         ListAggregator aggregator = new ListAggregator();
-        int sum = aggregator.sum(list); //
+        int sum = aggregator.sum(getList()); //
 
         Assertions.assertEquals(14, sum);
     }
 
     @Test
     public void max() {
-        List<Integer> list = getList();
 
         ListAggregator aggregator = new ListAggregator();
-        int max = aggregator.max(list);
+        int max = aggregator.max(getList());
+
+        Assertions.assertEquals(5, max);
+    }
+    //#7263
+    @Test void max1(){
+
+        ListAggregator aggregator = new ListAggregator();
+        int max = aggregator.max(getList());; //
 
         Assertions.assertEquals(5, max);
     }
 
     @Test
     public void min() {
-        List<Integer> list = getList();
-
         ListAggregator aggregator = new ListAggregator();
-        int min = aggregator.min(list);
+        int min = aggregator.min(getList());
 
         Assertions.assertEquals(1, min);
     }
 
     @Test
     public void distinct() {
-        List<Integer> list = getList();
 
         ListAggregator aggregator = new ListAggregator();
-        int distinct = aggregator.distinct(list);
+        int distinct = aggregator.distinct(getList());
 
         Assertions.assertEquals(4, distinct);
+    }
+    //#8726
+    @Test void distinct1(){
+
     }
 }
