@@ -8,7 +8,13 @@ import static java.lang.Integer.MIN_VALUE;
  * A utility class that aggregates list of numbers
  * into a single integer using various functions.
  */
+
 public class ListAggregator {
+
+
+    public ListAggregator() {
+    }
+
     /**
      * Sums all numbers in a list.
      * @return The sum of all the values in the list.
@@ -55,8 +61,10 @@ public class ListAggregator {
      * @return The number of distinct numbers.
      */
 
-    public int distinct(List<Integer> list, ListDeduplicator deduplicator) {
-        //GenericListDeduplicator deduplicator = new GenericListDeduplicator();
+
+    public int distinct(List<Integer> list) {
+        GenericListDeduplicator deduplicator = new GenericListDeduplicator() {
+        };
         List<Integer> distinct = deduplicator.deduplicate(list);
 
         return distinct.size();
